@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+    {% else %}
+    <div class="row">
+        <!-- Portada y info básica -->
+        <div class="col-md-4">
+            <img src="{{ game.background_image }}" class="img-fluid rounded" alt="{{ game.name }}">
+            <div class="mt-3">
+                <h2>{{ game.name }}</h2>
+                <p>Lanzamiento: {{ game.released|default:"Desconocido" }}</p>
+                <p>Rating: {{ game.rating }}/5 ({{ game.ratings_count }} votos)</p>
+                <p>Metacritic: 
+                    {% if game.metacritic %}
+                    <span class="badge bg-{% if game.metacritic >= 75 %}success{% elif game.metacritic >= 50 %}warning{% else %}danger{% endif %}">
+                        {{ game.metacritic }}
+                    </span>
+                    {% else %}
+                    N/A
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        
+        <!-- Descripción y detalles -->
+        <div class="col-md-8">
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                    <h4 class="card-title">Descripción</h4>
+                    <p class="card-text">{{ game.description_raw|default:"No hay descripción disponible." }}</p>
+                    
+                    <!-- Plataformas -->
+                    <h5 class="mt-4">Plataformas</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for platform in game.platforms %}
+                        <span class="badge bg-secondary">{{ platform.platform.name }}</span>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Géneros -->
+                    <h5 class="mt-4">Géneros</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for genre in game.genres %}
+                        <span class="badge bg-info">{{ genre.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Screenshots -->
+            {% if screenshots %}
+            <h4 class="mt-4">Capturas de pantalla</h4>
+            <div class="row g-2">
+                {% for screenshot in screenshots|slice:":6" %}
+                <div class="col-6 col-md-4">
+                    <img src="{{ screenshot.image }}" class="img-fluid rounded" alt="Screenshot {{ forloop.counter }}">
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

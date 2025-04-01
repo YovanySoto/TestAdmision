@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Barra de búsqueda y filtros -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" name="search" placeholder="Buscar juegos..." 
+                       value="{{ search_query }}" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <select class="form-select" onchange="window.location.href=this.value">
+                <option value="?">Todas las plataformas</option>
+                <option value="?platform=4">PC</option>
+                <option value="?platform=187">PlayStation 5</option>
+                <option value="?platform=1">Xbox One</option>
+                <!-- Añade más plataformas según necesites -->
+            </select>
+        </div>
+    </div>
+
+    <!-- Mensajes de error -->
+    {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <!-- Lista de juegos -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for game in games %}
+        <div class="col">
+            <div class="card h-100 bg-dark text-white">
+                <img src="{{ game.background_image }}" class="card-img-top" alt="{{ game.name }}" 
+                     style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ game.name }}</h5>
+                    <p class="card-text">
+                        <span class="badge bg-primary">{{ game.rating }}/5</span>
+                        <span class="badge bg-secondary ms-2">{{ game.released|default:"Sin fecha" }}</span>
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'game_detail' game.id %}" class="btn btn-sm btn-outline-light">Ver detalles</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">No se encontraron juegos</div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Paginación -->
+    {% if games.paginator.num_pages > 1 %}
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if games.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ games.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}">Anterior</a>
+            </li>
+            {% endif %}
+            
+            <li class="page-item disabled">
+                <span class="page-link">Página {{ games.number }} de {{ games.paginator.num_pages }}</span>
+            </li>
+            
+            {% if games.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ games.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}">Siguiente</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

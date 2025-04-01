@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for producto in productos %}
+        <section>
+            <div class="product-container">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ producto.imagen_url }}" class="card-img-top" alt="Imagen de {{ producto.descripcion }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                        <p class="card-text">{{ producto.descripcion }}</p>
+                        <p class="card-text"><strong>Precio: {{ producto.precio }}</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="product-container">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ producto.imagen_url }}" class="card-img-top" alt="Imagen de {{ producto.descripcion }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                        <p class="card-text">{{ producto.descripcion }}</p>
+                        <p class="card-text"><strong>Precio: {{ producto.precio }}</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="product-container">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ producto.imagen_url }}" class="card-img-top" alt="Imagen de {{ producto.descripcion }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                        <p class="card-text">{{ producto.descripcion }}</p>
+                        <p class="card-text"><strong>Precio: {{ producto.precio }}</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="product-container">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ producto.imagen_url }}" class="card-img-top" alt="Imagen de {{ producto.descripcion }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                        <p class="card-text">{{ producto.descripcion }}</p>
+                        <p class="card-text"><strong>Precio: {{ producto.precio }}</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endfor %}
+{% endblock %}
