@@ -1,3 +1,51 @@
-    **/*__pycache__
-    **/*migrations
-    .env
+# Entornos virtuales
+venv/
+.env/
+.venv/
+
+# Archivos de entorno
+.env
+.env.local
+.env.*.local
+
+# Base de datos
+*.sqlite3
+*.db
+
+# Archivos de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django
+migrations/
+staticfiles/
+media/
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Logs y archivos temporales
+*.log
+*.pot
+*.pyc
+
+# Archivos de instalación
+pip-delete-this-directory.txt
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Entornos de producción
+*.env.production
+
+# Archivos de sistema
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
